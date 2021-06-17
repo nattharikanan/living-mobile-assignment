@@ -7,7 +7,7 @@ async function bootstrap() {
 
    // config Swagger document's descriptions
    const config = new DocumentBuilder()
-   .setTitle('DVD Rental API')
+   .setTitle('REST API')
    .setVersion('1.0')
    .build();
 
