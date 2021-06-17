@@ -70,7 +70,8 @@ export class StoresController {
         type: StoreDto,
     })
     findOne(@Param('name') name: string){
-        return this.storesService.findOne(name);
+        const store = this.storesService.findOne(name);
+        return plainToClass(StoreDto, store, { excludeExtraneousValues: true });
     }
 }
 
