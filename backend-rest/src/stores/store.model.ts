@@ -1,6 +1,5 @@
 import { Column, Model, Table, DataType } from 'sequelize-typescript';
 
-
 @Table({
     tableName: 'store',
 })
