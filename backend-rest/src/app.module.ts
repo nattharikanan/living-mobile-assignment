@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { StoresModule } from './stores/stores.module';
 import { CategoriesModule } from './categories/categories.module';
+import { MenusModule } from './menus/menus.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CategoriesModule } from './categories/categories.module';
     }),
     StoresModule,
     CategoriesModule,
+    MenusModule,
 ],
   controllers: [AppController],
   providers: [AppService],

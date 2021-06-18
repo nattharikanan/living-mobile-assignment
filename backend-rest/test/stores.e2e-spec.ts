@@ -1,9 +1,10 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { StoresModule } from '../src/stores/stores.module'
-import { StoresService } from '../src/stores/stores.service'
+import { StoresModule } from '../src/stores/stores.module';
+import { StoresService } from '../src/stores/stores.service';
 import { INestApplication } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { CategoriesModule } from '../src/categories/categories.module'
 
 describe('StoresController (e2e)', () => {
     let app: INestApplication;
@@ -18,6 +19,7 @@ describe('StoresController (e2e)', () => {
                     logging: false,
                 }),
                 StoresModule,
+                CategoriesModule
             ],
             providers: [StoresService],
         }).compile();
@@ -31,33 +33,33 @@ describe('StoresController (e2e)', () => {
     afterAll(async () => {
         await app.close();
     });
-
-    describe('Find all stores', () => {
+    describe('Find all store', () => {
         it('When there is one user, then return that store', async () => {
-            const createStoreInput = {
-                name: 'Nan res',
-                description : "test",
-                rating : 3
+            const createStoresInput = {
+                name: 'A',
+                description: 'A',
+                rating: 3,
             };
-            await service.create(createStoreInput);
+            await service.create(createStoresInput);
 
             return request(app.getHttpServer())
                 .get('/stores')
                 .expect(200)
                 .then((response) => {
                     expect(response.body[0]).toEqual(
-                        expect.objectContaining(createStoreInput),
+                        expect.objectContaining(createStoresInput),
                     );
                 });
         });
     });
 
     describe('Create stores', () => {
-        it('When create with valid input, then response 200 (OK) with created store', async () => {
+        it('When store with valid input, then response 200 (OK) with created stores', async () => {
             // arrange
             const createStoreInput = {
-                name: 'ร้านอาหารอิสลาม',
-                storeId: 'c4acde9b-6879-4e60-94b7-39f38d82dfad'
+                name: 'John',
+                description: 'Doe',
+                rating: 3,
             };
 
             return request(app.getHttpServer())
@@ -67,10 +69,9 @@ describe('StoresController (e2e)', () => {
                 .then((response) => {
                     expect(response.body).toEqual(
                         expect.objectContaining(createStoreInput),
-                    );
-                });
+                        );
+                    });
+            });
         });
-    });
-
     
 });

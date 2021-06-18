@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { StoreModel } from './store.model';
 import { CreateStoreDto } from './dto/createStore.dto';
-import { StoreDto } from './dto/store.dto'
 
 @Injectable()
 export class StoresService {
@@ -11,11 +10,12 @@ export class StoresService {
         private storeRepo: typeof StoreModel, // UserModel act like userRepo here.
       ) {}
     
-      create(store: CreateStoreDto) {
+       create(store: CreateStoreDto) {
           // userRepo is Sequelize model it have many functions to work with database.
           // more info please see below documents.
-          return this.storeRepo.create(store);
+          return   this.storeRepo.create(store);
       }
+      
     
     // update(id:StoreModel,  updatestore : UpdateStoreDto) {
     //     return this.storeRepo.update(id,updatestore)
