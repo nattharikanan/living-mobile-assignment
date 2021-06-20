@@ -30,7 +30,7 @@ export class CategoriesController {
 
     
     @Get()
-    @ApiOperation({ summary: 'Find all category' })
+    @ApiOperation({ summary: 'Get all category' })
     @ApiOkResponse({ // HTTP 200
         description: 'All of categories',
         isArray: true,
