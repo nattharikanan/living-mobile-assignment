@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post ,Put,Delete,Param} from '@nestjs/common';
+import { Body, Controller, Get, Post ,Put,Delete,Param,Res, HttpStatus} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 import { ApiOperation } from '@nestjs/swagger';
+import { Response } from 'express';
 
 import {
     ApiCreatedResponse,
@@ -29,7 +30,7 @@ export class CategoriesController {
 
     
     @Get()
-    @ApiOperation({ summary: 'Find all category' })
+    @ApiOperation({ summary: 'Get all category' })
     @ApiOkResponse({ // HTTP 200
         description: 'All of categories',
         isArray: true,
@@ -65,14 +66,17 @@ export class CategoriesController {
     }
 
     @Get(':name')
-    @ApiOperation({ summary: 'Fine one category by name'})
+    @ApiOperation({ summary: 'Search category by name'})
     @ApiOkResponse({ // HTTP 200
-        description: 'Category was found !',
         isArray: true,
         type: CategoryDto,
     })
-    findOne(@Param('name') name: string){
-        const cat = this.categoriesService.findOne(name);
-        return plainToClass(CategoryDto, cat, { excludeExtraneousValues: true });
+     async find(@Param('name') name: string,@Res() res:Response){
+        const cat = await this.categoriesService.find(name);
+        if(cat[0] === null || cat[0] === undefined ){
+                res.status(HttpStatus.NOT_FOUND).json();
+        }else{
+            res.status(HttpStatus.OK).json(cat);
+        }
     }
 }

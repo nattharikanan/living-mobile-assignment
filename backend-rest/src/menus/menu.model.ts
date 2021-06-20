@@ -1,15 +1,26 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, Table,DataType,ForeignKey } from 'sequelize-typescript';
+import { CategoryModel } from '../categories/category.model';
 
 @Table({
-    tableName: 'user',
+    tableName: 'menu',
 })
-export class UserModel extends Model {
-    @Column
-    firstName: string;
+export class MenuModel extends Model {
+    @Column({
+        defaultValue: DataType.UUIDV4,
+        primaryKey: true,
+        allowNull: false,
+        type: DataType.UUID
+    })
+    id: string;
+
+    @ForeignKey(()=> CategoryModel)
+    categoryId: string;
 
     @Column
-    lastName: string;
+    name: string;
 
-    @Column({ defaultValue: true })
-    isActive: boolean;
+    @Column
+    price: number;
+
+   
 }

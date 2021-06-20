@@ -39,9 +39,8 @@ async update(id: string, store: CreateStoreDto) {
     })
 }
 
-async findOne(name: string): Promise<CreateStoreDto> {
-    return this.storeRepo.findOne({where:{name:name}});
-}
+    async find (name: string) {
+    return this.storeRepo.findAll({where:{name:name}});
+    }
 
-   
 }

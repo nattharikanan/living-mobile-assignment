@@ -1,5 +1,6 @@
-import { Column, Model, Table,DataType,ForeignKey } from 'sequelize-typescript';
-import { JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Model, Table,DataType,ForeignKey,HasMany } from 'sequelize-typescript';
+import { ManyToOne, OneToMany } from 'typeorm';
+import { MenuModel } from '../menus/menu.model';
 import { StoreModel } from '../stores/store.model';
 
 @Table({
@@ -20,6 +21,9 @@ export class CategoryModel extends Model {
     //ใส่ตรงที่จะมี FK 
     @ForeignKey(()=> StoreModel)
     storeId: string;
+
+    @HasMany(()=> MenuModel)
+    menuId: MenuModel[]
 
     // @HasMany(()=> MenuModel)    ///ใส่หัวเมนู 
     // Menu: MenuModel[]
