@@ -11,10 +11,10 @@ export class MenusService {
         private menuRepo: typeof MenuModel, // UserModel act like userRepo here.
       ) {}
     
-      create(user: CreateMenuDto) {
+      create(menu: CreateMenuDto) {
           // userRepo is Sequelize model it have many functions to work with database.
           // more info please see below documents.
-          return this.menuRepo.create(user);
+          return this.menuRepo.create(menu);
       }
     
       findAll() {
@@ -34,7 +34,7 @@ export class MenusService {
         })
     }
     
-    async findOne(id: string): Promise<CreateMenuDto> {
-        return await this.menuRepo.findOne({where:{id:id}});
+    async find(name: string) {
+        return await this.menuRepo.findAll({where:{name:name}});
     }
 }

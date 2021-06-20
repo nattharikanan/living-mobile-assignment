@@ -6,4 +6,6 @@ export class CreateCategoryDto {
 
     @ApiProperty()
     storeId: string;
+
+    
 }

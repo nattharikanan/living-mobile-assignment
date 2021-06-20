@@ -34,8 +34,8 @@ export class CategoriesService {
         })
     }
     
-    async findOne(name: string): Promise<CreateCategoryDto> {
-        return this.categoryRepo.findOne({where:{name:name}});
+    async find(name: string) {
+        return this.categoryRepo.findAll({where:{name:name}});
     }
     
 }

@@ -1,5 +1,5 @@
 import { Column, Model, Table,DataType,ForeignKey } from 'sequelize-typescript';
-import { CategoryModel } from 'src/categories/category.model';
+import { CategoryModel } from '../categories/category.model';
 
 @Table({
     tableName: 'menu',

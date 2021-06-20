@@ -1,6 +1,6 @@
 import { Column, Model, Table, DataType,HasMany } from 'sequelize-typescript';
 import { CategoryModel } from '../categories/category.model';
-import { OneToMany, } from 'typeorm';
+
 
 @Table({
     tableName: 'store',

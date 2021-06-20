@@ -1,16 +1,17 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { StoresModule } from '../src/stores/stores.module';
-import { StoresService } from '../src/stores/stores.service';
+import { CategoriesService } from '../src/categories/categories.service';
 import { INestApplication } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { CategoriesModule } from '../src/categories/categories.module'
 import { MenusModule } from '../src/menus/menus.module';
+import { StoresService } from '../src/stores/stores.service'
 
-
-describe('StoresController (e2e)', () => {
+describe('CategoriesController (e2e)', () => {
     let app: INestApplication;
-    let service: StoresService;
+    let service: CategoriesService;
+    let storesService : StoresService
     beforeAll(async () => {
         const module = await Test.createTestingModule({
             imports: [
@@ -24,65 +25,69 @@ describe('StoresController (e2e)', () => {
                 CategoriesModule,
                 MenusModule
             ],
-            providers: [StoresService],
+            providers: [CategoriesService],
         }).compile();
 
         app = module.createNestApplication();
         await app.init();
 
-        service = module.get<StoresService>(StoresService);
+        service = module.get<CategoriesService>(CategoriesService);
+        storesService = module.get<StoresService>(StoresService);
+
     });
   
-    describe('Find all store', () => {
+    describe('Create category', () => {
         it('When there is one user, then return that store', async () => {
-            const createStoresInput = {
-                name: 'A',
-                description: 'A',
-                rating: 3,
+            //CreateStore
+            const StoreInsert = {
+                name: 'TestInSert',
+                description: 'Test',
+                rating: 5,
             };
-            await service.create(createStoresInput);
-
-            return request(app.getHttpServer())
+            await storesService.create(StoreInsert);
+            //decare ID
+            let id = ''
+            await request(app.getHttpServer())
                 .get('/stores')
                 .expect(200)
                 .then((response) => {
-                    expect(response.body[0]).toEqual(
-                        expect.objectContaining(createStoresInput),
-                    );
-                });
+                   id = response.body[0].id
+                })
+             //CreateCategory   
+                const CreateCategory1 = {
+                    name : 'TestCat',
+                    storeId : id
+                }
+                await service.create(CreateCategory1)
+                const CreateCategory2 = {
+                    name: 'new test',
+                    storeId: id,
+                };
+                await service.create(CreateCategory2)
+
+                const CreateCategory3 = {
+                    name: 'new test',
+                    storeId: id,
+                };
+                await service.create(CreateCategory3)
+                 return request(app.getHttpServer())
+                .post('/categories')
+                .expect(201)
+                .then((res)=>{
+                    expect(res.statusCode).toEqual(201);
+                })
         });
     });
 
-    describe('Create stores', () => {
-        it('When store with valid input, then response 200 (OK) with created stores', async () => {
-            // arrange
-            const createStoreInput = {
-                name: 'John',
-                description: 'Doe',
-                rating: 3,
-            };
-
-            return request(app.getHttpServer())
-                .post('/stores')
-                .send(createStoreInput)
-                .expect(201)
-                .then((response) => {
-                    expect(response.body).toEqual(
-                        expect.objectContaining(createStoreInput),
-                        );
-                    });
-            });
-        });
-
-        describe('Update stores', () => {
+        describe('Update categories', () => {
             it('When store with valid input, then response 200 (OK) with update stores', async () => {
                 const updateStoreInput = {
-                    name: 'John',
-                    description: 'Doe',
-                    rating: 3,
+                    id : '17b07675-bda0-4878-815f-1f9e5cf3479a',
+                    name: 'TestUpdateCat',
+                    storeId: '389c423c3-6af5-4cbc-9380-8b8a3cda2334',
                 };
                 return request(app.getHttpServer())
-                    .put('/stores/{id}')
+                    .put('/categories/{id}')
                     .send(updateStoreInput)
                     .expect(200)
                     .then((response) => {
@@ -91,26 +96,25 @@ describe('StoresController (e2e)', () => {
                 });
                 it('When update invalid , then response 400 (Bad Request)', async () => {
                     // arrange
-                    const createStoreInput = { name : '', description: '' ,rating :'test' };
+                    const createCategoriesInput = { name : '', storeId: ''  };
         
                     return request(app.getHttpServer())
                         .put('/stores/{id}')
-                        .send(createStoreInput)
+                        .send(createCategoriesInput)
                         .expect(400);
                 });
             });
 
 
-            describe('Delete stores', () => {
+            describe('Delete category', () => {
                 it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
                     // arrange
-                    const DeleteID = {
-                        id: '297e3e67-baf0-4763-ac0e-d150fdb0cd43'
+                    const createDeleteInput = {
+                        id: '17b07675-bda0-4878-815f-1f9e5cf3479a'
                     };
-        
                     return request(app.getHttpServer())
-                        .delete('/stores/{id}')
-                        .send(DeleteID)
+                        .delete('/categories/{id}')
+                        .send(createDeleteInput)
                         .expect(200)
                         .then((response) => {
                             expect(response.statusCode).toEqual(200);

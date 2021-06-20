@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Post,Delete, Put,Param,Res, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, Post,Delete, Put,Param,Res, HttpStatus, UsePipes, ValidationPipe } from '@nestjs/common';
 import { StoresService } from './stores.service';
 import { CreateStoreDto } from './dto/createStore.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiNoContentResponse, ApiOperation } from '@nestjs/swagger';
+import { Response } from 'express';
 import {
     ApiCreatedResponse,
     ApiOkResponse,
+    ApiBadRequestResponse
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { StoreDto } from './dto/store.dto';
@@ -53,25 +55,40 @@ export class StoresController {
 
      @Put(':id')
      @ApiOperation({ summary: 'Update store information' })
-     @ApiOkResponse({ // HTTP 200
+     @ApiNoContentResponse({ // HTTP 204
         description: 'Update store successfully',
         isArray: true,
         type: StoreDto,
+    })
+    @UsePipes(
+        new ValidationPipe({
+            transform: true,
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            forbidUnknownValues: true,
+        }),
+    )
+    @ApiBadRequestResponse({
+        description: 'The menuid input is invalid.',
     })
      update(@Param('id') id: string, @Body() store: CreateStoreDto ) {
         return this.storesService.update(id, store)
     }
 
     @Get(':name')
-    @ApiOperation({ summary: 'Fine one store by name'})
+    @ApiOperation({ summary: 'Search store by name'})
     @ApiOkResponse({ // HTTP 200
         description: 'Store was found !',
         isArray: true,
         type: StoreDto,
     })
-    findOne(@Param('name') name: string){
-        const store = this.storesService.findOne(name);
-        return plainToClass(StoreDto, store, { excludeExtraneousValues: true });
+    find(@Param('name') name: string,@Res() res:Response){
+        const store = this.storesService.find(name);
+        if(store[0] === null || store[0] === undefined ){
+            res.status(HttpStatus.NOT_FOUND).json();
+        }else{
+            res.status(HttpStatus.OK).json(store);
+        }
     }
 }
 

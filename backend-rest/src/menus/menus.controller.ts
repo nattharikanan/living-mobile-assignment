@@ -21,7 +21,7 @@ export class MenusController {
     @ApiOperation({ summary: 'Create Menu'})
     @ApiCreatedResponse({ // HTTP 201
         description: 'The menu has been successfully created.',
-        type: MenuDto,
+        type: CreateMenuDto,
     })
     @ApiBadRequestResponse({
         description: 'The create-menu input is invalid.',
@@ -47,6 +47,17 @@ export class MenusController {
         isArray: true,
         type: MenuDto,
     })
+    @ApiBadRequestResponse({
+        description: 'The create-menu input is invalid.',
+    })
+    @UsePipes(
+        new ValidationPipe({
+            transform: true,
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            forbidUnknownValues: true,
+        }),
+    )
     
     async findAll() {
         const menus = await this.menusService.findAll();
@@ -79,7 +90,7 @@ export class MenusController {
     }
 
      @Put(':id')
-     @ApiOperation({ summary: 'Update menus information' })
+     @ApiOperation({ summary: 'Update menu information' })
      @ApiOkResponse({ // HTTP 200
         description: 'Update menu successfully',
         isArray: true,
@@ -90,25 +101,17 @@ export class MenusController {
     
     }
 
-    @Get(':id')
-    @ApiOperation({ summary: 'Find one menu by name'})
-    @ApiBadRequestResponse({
-        description: 'The menuid input is invalid.',
-    })
-    async findOne(@Param('id') id: string,@Res() res: Response){
-        const menu = await this.menusService.findOne(id);
-         console.log(menu)
-        if(menu === null){
-            console.log("Not Found")
-       
-            res.status(HttpStatus.NO_CONTENT).json([]);
-            
+    @Get(':name')
+    @ApiOperation({ summary: 'Search menu by name'})
+  
+    async find(@Param('name') name: string,@Res() res: Response){
+        const menu = await this.menusService.find(name);
+        console.log(menu[0]);
+        if(menu[0] === null || menu[0] === undefined ){
+            res.status(HttpStatus.NOT_FOUND).json();
         }else{
-            console.log("Found")
-            res.status(HttpStatus.OK).json([menu]);
-            // return plainToClass(MenuDto, menu, { excludeExtraneousValues: true });
+            res.status(HttpStatus.OK).json(menu);
         }
          
-       
     }
 }

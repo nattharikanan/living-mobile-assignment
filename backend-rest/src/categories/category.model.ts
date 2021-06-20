@@ -1,6 +1,6 @@
 import { Column, Model, Table,DataType,ForeignKey,HasMany } from 'sequelize-typescript';
-import { MenuModel } from 'src/menus/menu.model';
-import { JoinColumn, ManyToOne } from 'typeorm';
+import { ManyToOne, OneToMany } from 'typeorm';
+import { MenuModel } from '../menus/menu.model';
 import { StoreModel } from '../stores/store.model';
 
 @Table({
