@@ -35,6 +35,49 @@ describe('CategoriesController (e2e)', () => {
         storesService = module.get<StoresService>(StoresService);
 
     });
+    describe('Get all category', () => {
+        it('When there is one user, then return that gategory', async () => {
+                //CreateStore
+                const StoreInsert = {
+                    name: 'TestInSert',
+                    description: 'Test',
+                    rating: 5,
+                };
+                await storesService.create(StoreInsert);
+                //decare ID
+                let id = ''
+                await request(app.getHttpServer())
+                    .get('/stores')
+                    .expect(200)
+                    .then((response) => {
+                       id = response.body[0].id
+                    })
+                 //CreateCategory   
+                    const CreateCategory1 = {
+                        name : 'TestCat',
+                        storeId : id
+                    }
+                    await service.create(CreateCategory1)
+                    const CreateCategory2 = {
+                        name: 'new test',
+                        storeId: id,
+                    };
+                    await service.create(CreateCategory2)
+    
+                    const CreateCategory3 = {
+                        name: 'new test',
+                        storeId: id,
+                    };
+                    await service.create(CreateCategory3)
+                    return request(app.getHttpServer())
+                    .get('/categories')
+                    .expect(200)
+                    .then((res)=>{
+                        expect(res.body.length).toEqual(3)
+                    })
+            });
+ 
+    });
   
     describe('Create category', () => {
         it('When there is one user, then return that store', async () => {
@@ -156,7 +199,6 @@ describe('CategoriesController (e2e)', () => {
                 .expect(201)
                 .then(async (response) => {
                     catId = response.body.id
-    
                     await request(app.getHttpServer())
                         .delete(`/categories/${catId}`)
                         .expect(200)
@@ -166,5 +208,27 @@ describe('CategoriesController (e2e)', () => {
                     })
                     });
                 });
+                describe('Search stores', () => {
+                    it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
+                         //create Store to test
+                    const createCatfortest = {
+                        name: 'TestCat',
+                        storeId: '961ba3fc-d8e3-463a-9b2c-cdbcf3c17b0d'
+                    };
+                    let data = '';
+                     await request(app.getHttpServer())
+                     .get('/categories')
+                     .expect(200)
+                     .then((response) => {
+                        data = response.body
+                        return request(app.getHttpServer())
+                            .get(`/categories/${createCatfortest.name}`)
+                            .then((response) =>{
+                                expect(response.statusCode).toEqual(200);
+                            })
+                     })
+                        
+                    });
+            });
                
 });

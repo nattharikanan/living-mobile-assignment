@@ -34,7 +34,7 @@ describe('StoresController (e2e)', () => {
         service = module.get<StoresService>(StoresService);
     });
   
-    describe('Find all store', () => {
+    describe('Get all store', () => {
         it('When there is one user, then return that store', async () => {
             const createStoresInput = {
                 name: 'A',
@@ -125,7 +125,7 @@ describe('StoresController (e2e)', () => {
                         .put(`/stores/${id}`)
                         .send(createStoreInput)
                         .expect(400);
-               
+                    });
             });
             describe('Delete stores', () => {
                 it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
@@ -148,11 +148,36 @@ describe('StoresController (e2e)', () => {
                         .then((response) => {
                             expect(response.statusCode).toEqual(200);
                             });
-                    });
                 });
-                afterAll(async () => {
-                    await app.close();
-                });
+    });
+
+    describe('Search stores', () => {
+        it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
+             //create Store to test
+        const createStorefortest = {
+            name: 'John',
+            description: 'ForTest',
+            rating: 4,
+        };
+        let data = '';
+         await request(app.getHttpServer())
+         .get('/stores')
+         .expect(200)
+         .then((response) => {
+            data = response.body
+            return request(app.getHttpServer())
+                .get(`/stores/${createStorefortest.name}`)
+                .then((response) =>{
+                    expect(response.statusCode).toEqual(200);
+                })
+         })
+            
+        });
+});
+
+            afterAll(async () => {
+                await app.close();
             });
+            
 
 });

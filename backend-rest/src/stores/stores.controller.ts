@@ -78,12 +78,11 @@ export class StoresController {
     @Get(':name')
     @ApiOperation({ summary: 'Search store by name'})
     @ApiOkResponse({ // HTTP 200
-        description: 'Store was found !',
         isArray: true,
         type: StoreDto,
     })
-    find(@Param('name') name: string,@Res() res:Response){
-        const store = this.storesService.find(name);
+    async find(@Param('name') name: string,@Res() res:Response){
+        const store = await this.storesService.find(name);
         if(store[0] === null || store[0] === undefined ){
             res.status(HttpStatus.NOT_FOUND).json();
         }else{

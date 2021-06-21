@@ -106,7 +106,6 @@ export class MenusController {
   
     async find(@Param('name') name: string,@Res() res: Response){
         const menu = await this.menusService.find(name);
-        console.log(menu[0]);
         if(menu[0] === null || menu[0] === undefined ){
             res.status(HttpStatus.NOT_FOUND).json();
         }else{
