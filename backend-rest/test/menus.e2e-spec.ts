@@ -8,11 +8,7 @@ import { CategoriesModule } from '../src/categories/categories.module'
 import { MenusModule } from '../src/menus/menus.module';
 import { CategoriesService } from '../src/categories/categories.service';
 import { StoresService } from '../src/stores/stores.service';
-import { type } from 'os';
-import { combineLatest } from 'rxjs';
-import { response } from 'express';
 
-let CatId = ''
 describe('MenusController (e2e)', () => {
     let app: INestApplication;
     let service: MenusService;
@@ -254,6 +250,29 @@ describe('MenusController (e2e)', () => {
                     
                     });
                 });
+
+                describe('Search stores', () => {
+                    it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
+                         //create Store to test
+                    const createCatfortest = {
+                        name: 'UpdateMenu',
+
+                    };
+                    let data = '';
+                     await request(app.getHttpServer())
+                     .get('/menus')
+                     .expect(200)
+                     .then((response) => {
+                        data = response.body
+                        return request(app.getHttpServer())
+                            .get(`/menus/${createCatfortest.name}`)
+                            .then((response) =>{
+                                expect(response.statusCode).toEqual(200);
+                            })
+                     })
+                        
+                    });
+            });
                
             });
             afterAll(async () => {
