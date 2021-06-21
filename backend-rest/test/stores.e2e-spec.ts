@@ -8,6 +8,7 @@ import { CategoriesModule } from '../src/categories/categories.module'
 import { MenusModule } from '../src/menus/menus.module';
 
 
+
 describe('StoresController (e2e)', () => {
     let app: INestApplication;
     let service: StoresService;
@@ -76,41 +77,73 @@ describe('StoresController (e2e)', () => {
 
         describe('Update stores', () => {
             it('When store with valid input, then response 200 (OK) with update stores', async () => {
+                //create Store to test
+                const createStoreInput = {
+                    name: 'ForTest',
+                    description: 'ForTest',
+                    rating: 4,
+                };
+                let id = '';
+                 await request(app.getHttpServer())
+                 .post('/stores')
+                 .expect(201)
+                 .then((response) => {
+                    id = response.body
+                 })
                 const updateStoreInput = {
                     name: 'John',
                     description: 'Doe',
                     rating: 3,
                 };
+
                 return request(app.getHttpServer())
-                    .put('/stores/{id}')
+                    .put(`/stores/${id}`)
                     .send(updateStoreInput)
                     .expect(200)
                     .then((response) => {
                         expect(response.statusCode).toEqual(200);
-                        });
+                    });
                 });
+              
                 it('When update invalid , then response 400 (Bad Request)', async () => {
+                      //create Store to test
+                const createStorefortest = {
+                    name: 'ForTest',
+                    description: 'ForTest',
+                    rating: 4,
+                };
+                let id = '';
+                 await request(app.getHttpServer())
+                 .post('/stores')
+                 .expect(201)
+                 .then((response) => {
+                    id = response.body
+                 })
                     // arrange
-                    const createStoreInput = { name : '', description: '' ,rating :'test' };
-        
+                const createStoreInput = { name : '', description: '' ,rating :'test' };
                     return request(app.getHttpServer())
-                        .put('/stores/{id}')
+                        .put(`/stores/${id}`)
                         .send(createStoreInput)
                         .expect(400);
-                });
+               
             });
-
-
             describe('Delete stores', () => {
                 it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
-                    // arrange
-                    const DeleteID = {
-                        id: '297e3e67-baf0-4763-ac0e-d150fdb0cd43'
-                    };
-        
+                     //create Store to test
+                const createStorefortest = {
+                    name: 'ForTest',
+                    description: 'ForTest',
+                    rating: 4,
+                };
+                let id = '';
+                 await request(app.getHttpServer())
+                 .post('/stores')
+                 .expect(201)
+                 .then((response) => {
+                    id = response.body
+                 })
                     return request(app.getHttpServer())
-                        .delete('/stores/{id}')
-                        .send(DeleteID)
+                        .delete(`/stores/${id}`)
                         .expect(200)
                         .then((response) => {
                             expect(response.statusCode).toEqual(200);
@@ -120,4 +153,6 @@ describe('StoresController (e2e)', () => {
                 afterAll(async () => {
                     await app.close();
                 });
+            });
+
 });

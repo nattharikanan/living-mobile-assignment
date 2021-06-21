@@ -81,47 +81,90 @@ describe('CategoriesController (e2e)', () => {
 
         describe('Update categories', () => {
             it('When store with valid input, then response 200 (OK) with update stores', async () => {
-                const updateStoreInput = {
-                    id : '17b07675-bda0-4878-815f-1f9e5cf3479a',
-                    name: 'TestUpdateCat',
-                    storeId: '389c423c3-6af5-4cbc-9380-8b8a3cda2334',
+                //create store
+                const StoreInsert = {
+                    name: 'TestInSert',
+                    description: 'Test',
+                    rating: 5,
                 };
-                return request(app.getHttpServer())
-                    .put('/categories/{id}')
-                    .send(updateStoreInput)
+                await storesService.create(StoreInsert);
+                let storeId = '' 
+                await request(app.getHttpServer())
+                    .get('/stores')
+                    .expect(200)
+                    .then((response) => {
+                        storeId = response.body[0].id
+                    })
+                 // create category
+                 const CreateCategory = {
+                    name: 'new test',
+                    storeId: storeId,
+                };
+                await service.create(CreateCategory)
+                let catId='';
+                await request(app.getHttpServer())
+                .post('/categories')
+                .expect(201)
+                .then((response) => {
+                    catId = response.body.id
+                   
+                    });
+                     // update category
+             const UpdateCategory = {
+                    name: 'UpdateCat',
+                    storeId: storeId,
+                    };
+                    return request(app.getHttpServer())
+                    .put(`/categories/${catId}`)
+                    .send(UpdateCategory)
                     .expect(200)
                     .then((response) => {
                         expect(response.statusCode).toEqual(200);
-                        });
+                    });
                 });
-                it('When update invalid , then response 400 (Bad Request)', async () => {
-                    // arrange
-                    const createCategoriesInput = { name : '', storeId: ''  };
-        
-                    return request(app.getHttpServer())
-                        .put('/stores/{id}')
-                        .send(createCategoriesInput)
-                        .expect(400);
-                });
-            });
 
+            });
+            afterAll(async () => {
+                await app.close();
+            });
 
             describe('Delete category', () => {
                 it('When store with valid input, then response 200 (OK) with deleted stores', async () => {
-                    // arrange
-                    const createDeleteInput = {
-                        id: '17b07675-bda0-4878-815f-1f9e5cf3479a'
-                    };
-                    return request(app.getHttpServer())
-                        .delete('/categories/{id}')
-                        .send(createDeleteInput)
+                    //create store
+                const StoreInsert = {
+                    name: 'TestInSert',
+                    description: 'Test',
+                    rating: 5,
+                };
+                await storesService.create(StoreInsert);
+                let storeId = '' 
+                await request(app.getHttpServer())
+                    .get('/stores')
+                    .expect(200)
+                    .then((response) => {
+                        storeId = response.body[0].id
+                    })
+                 // create category
+                 const CreateCategory = {
+                    name: 'new test',
+                    storeId: storeId,
+                };
+                await service.create(CreateCategory)
+                let catId='';
+                await request(app.getHttpServer())
+                .post('/categories')
+                .expect(201)
+                .then(async (response) => {
+                    catId = response.body.id
+    
+                    await request(app.getHttpServer())
+                        .delete(`/categories/${catId}`)
                         .expect(200)
                         .then((response) => {
                             expect(response.statusCode).toEqual(200);
                             });
+                    })
                     });
                 });
-                afterAll(async () => {
-                    await app.close();
-                });
+               
 });
