@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
    // config Swagger document's descriptions
    const config = new DocumentBuilder()
    .setTitle('REST API')
@@ -13,6 +13,7 @@ async function bootstrap() {
 
 // create Swagger document
 const document = SwaggerModule.createDocument(app, config);
+
 
 SwaggerModule.setup('api', app, document); // setup Swagger document at route "/api"
 
