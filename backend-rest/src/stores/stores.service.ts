@@ -38,9 +38,8 @@ async update(id: string, store: CreateStoreDto) {
         where:{id:id}
     })
 }
-
-        async find(name: string) {
-    return await this.storeRepo.findAll({where:{name:name}});
+        async find(id: string) {
+    return await this.storeRepo.findAll({where:{id:id}});
 }
 
 }

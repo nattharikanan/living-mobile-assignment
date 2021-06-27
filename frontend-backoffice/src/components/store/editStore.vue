@@ -76,8 +76,10 @@ export default {
       },
         }
     },
-      mounted(){
-         console.log(this.$route); 
+    async created() {
+    this.formEditStore = this.$route.params
+    console.log(this.formEditStore)
+    console.log(this.$route.params)
   },
    methods: {
      editStore(){

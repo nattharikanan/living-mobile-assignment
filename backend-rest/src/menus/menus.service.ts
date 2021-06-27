@@ -34,7 +34,7 @@ export class MenusService {
         })
     }
     
-    async find(name: string) {
-        return await this.menuRepo.findAll({where:{name:name}});
+    async find(id: string) {
+        return await this.menuRepo.findAll({where:{id:id}});
     }
 }

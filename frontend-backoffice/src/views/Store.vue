@@ -29,11 +29,10 @@
 </template>
 
 <script>
-import router from "../../main"; 
 import axios from "axios";
-import addStore from '../store/addStore.vue'
-import editStore from '../store/editStore.vue'
-import deleteStore from '../store/deleteStore.vue'
+import addStore from '../components/store/addStore.vue'
+import editStore from '../components/store/editStore.vue'
+import deleteStore from '../components/store/deleteStore.vue'
 export default {
     components:{
       addStore,
@@ -57,15 +56,14 @@ export default {
        indexMethod(index) {
         return "00".concat(index+1);  
     },
-    editStore(store){
+    editStore(row){
         this.editDialog = true
-        // this.editItems = store
-           router.push({
-        name : 'Store-editStore',
+        this.$router.push({
+        name : 'editStore',
         params:{
-          id: store.id
         }
       })
+        // this.editItems = store
         
     },
     deleteStore(store){

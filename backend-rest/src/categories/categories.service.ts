@@ -34,8 +34,8 @@ export class CategoriesService {
         })
     }
     
-    async find(name: string) {
-        return this.categoryRepo.findAll({where:{name:name}});
+    async find(id: string) {
+        return this.categoryRepo.findAll({where:{id:id}});
     }
     
 }

@@ -101,11 +101,11 @@ export class MenusController {
     
     }
 
-    @Get(':name')
-    @ApiOperation({ summary: 'Search menu by name'})
+    @Get(':id')
+    @ApiOperation({ summary: 'Search menu by id'})
   
-    async find(@Param('name') name: string,@Res() res: Response){
-        const menu = await this.menusService.find(name);
+    async find(@Param('id') id: string,@Res() res: Response){
+        const menu = await this.menusService.find(id);
         if(menu[0] === null || menu[0] === undefined ){
             res.status(HttpStatus.NOT_FOUND).json();
         }else{
