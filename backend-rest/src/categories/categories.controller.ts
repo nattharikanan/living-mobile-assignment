@@ -65,14 +65,14 @@ export class CategoriesController {
     
     }
 
-    @Get(':name')
-    @ApiOperation({ summary: 'Search category by name'})
+    @Get(':id')
+    @ApiOperation({ summary: 'Search category by id'})
     @ApiOkResponse({ // HTTP 200
         isArray: true,
         type: CategoryDto,
     })
-     async find(@Param('name') name: string,@Res() res:Response){
-        const cat = await this.categoriesService.find(name);
+     async find(@Param('id') id: string,@Res() res:Response){
+        const cat = await this.categoriesService.find(id);
         if(cat[0] === null || cat[0] === undefined ){
                 res.status(HttpStatus.NOT_FOUND).json();
         }else{

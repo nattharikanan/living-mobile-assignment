@@ -75,14 +75,14 @@ export class StoresController {
         return this.storesService.update(id, store)
     }
 
-    @Get(':name')
-    @ApiOperation({ summary: 'Search store by name'})
+    @Get(':id')
+    @ApiOperation({ summary: 'Search store by id'})
     @ApiOkResponse({ // HTTP 200
         isArray: true,
         type: StoreDto,
     })
-    async find(@Param('name') name: string,@Res() res:Response){
-        const store = await this.storesService.find(name);
+    async find(@Param('id') id: string,@Res() res:Response){
+        const store = await this.storesService.find(id);
         if(store[0] === null || store[0] === undefined ){
             res.status(HttpStatus.NOT_FOUND).json();
         }else{
