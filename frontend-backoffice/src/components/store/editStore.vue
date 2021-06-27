@@ -1,10 +1,10 @@
 <template>
    <el-dialog
-  title= "Edite"
+  :title= "formEditStore.name"
   :visible.sync="openCardDialog"
   width="30%">
-  <!-- <span slot="footer" class="dialog-footer">
-      <el-form :label-position="labelPosition" :model="formEditStore" :rules="rule">
+  <span slot="footer" class="dialog-footer">
+      <el-form :label-position="labelPosition" :model="formEditStore[0]" >
   <el-form-item label="Name" prop="storeName" >
     <el-input v-model="formEditStore.name"></el-input>
   </el-form-item>
@@ -25,34 +25,41 @@
 </el-form>
     <el-button @click="openCardDialog= false" round>Cancel</el-button>
     <el-button type="primary" round @click="editStore()">Edit Store</el-button>
-  </span> -->
+  </span>
 </el-dialog>
   
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
    props : {
         dialog : {
             type : Boolean,
               default: false,
         },
+        items :{
+          type : String
+        }
     },
      computed: {
     openCardDialog: {
       get() {
+        this.setData()
         return this.dialog
       },
       set(val) {
             this.$emit('updateEditeDialog', val) 
+          
+            
       }
     }
   },
 
     data(){
         return {
-          formEditStore:{},
+          id:'',
+          formEditStore:[],
           labelPosition: 'Top',
              options: [{
           value: 1}, 
@@ -77,15 +84,34 @@ export default {
         }
     },
     async created() {
-    this.formEditStore = this.$route.params
-    console.log(this.formEditStore)
-    console.log(this.$route.params)
+         
+      // const res = await axios.get(`http://localhost:3000/stores/${this.$route.params.id}`)
   },
    methods: {
-     editStore(){
-     
-     }
+    async setData(){
+       if(this.dialog){
+            this.id = this.items
+            const res = await axios.get(`http://localhost:3000/stores/${this.id}`)
+            this.formEditStore = res.data[0]
+       }
+      
+     },
+    async editStore(){
+          const res = await axios.put(`http://localhost:3000/stores/${this.id}`,{
+            name : this.formEditStore.name,
+            description: this.formEditStore.description,
+            rating: this.formEditStore.rating
+          })
+          console.log(res.status);
+              if (!res.status == 200) {
+        console.log("แก้ไขข้อมูลสินค้าไม่สำเร็จ");
+
+      } else {
+        console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
+       }
+       this.openCardDialog= false
    
+   }
    }
 }
 </script>
