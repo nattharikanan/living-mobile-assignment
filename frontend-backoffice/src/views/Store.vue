@@ -1,7 +1,7 @@
 <template>
   <div>
      <addStore/>
-     <editStore :dialog ="editDialog" @updateEditeDialog ="updateEditeDialog" :items="editItems"/>
+     <editStore :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteStore :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" />
     
     <data-tables :data="data" :total="10"  >
@@ -43,7 +43,7 @@ export default {
     return {
       data:[],
       items:[],
-    editItems:[],
+    editItems:'',
       editDialog:false,
       deleteDialog:false
     }
@@ -56,16 +56,13 @@ export default {
        indexMethod(index) {
         return "00".concat(index+1);  
     },
+  
     editStore(row){
-        this.editDialog = true
-        this.$router.push({
-        name : 'editStore',
-        params:{
-        }
-      })
-        // this.editItems = store
-        
-    },
+      this.editDialog = true
+      this.editItems = row.id
+      // console.log(typeof(row.id))
+    }
+    ,
     deleteStore(store){
           this.dialog = true
           this.items = store.id

@@ -60,14 +60,6 @@ export class StoresController {
         isArray: true,
         type: StoreDto,
     })
-    @UsePipes(
-        new ValidationPipe({
-            transform: true,
-            whitelist: true,
-            forbidNonWhitelisted: true,
-            forbidUnknownValues: true,
-        }),
-    )
     @ApiBadRequestResponse({
         description: 'The menuid input is invalid.',
     })

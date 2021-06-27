@@ -26,14 +26,6 @@ export class MenusController {
     @ApiBadRequestResponse({
         description: 'The create-menu input is invalid.',
     })
-    @UsePipes(
-        new ValidationPipe({
-            transform: true,
-            whitelist: true,
-            forbidNonWhitelisted: true,
-            forbidUnknownValues: true,
-        }),
-    )
     async create(@Body() createMenuDto: CreateMenuDto) {
         const menu = await this.menusService.create(createMenuDto);
         // this will map User model value to UserDto model value.
@@ -77,14 +69,7 @@ export class MenusController {
     @ApiBadRequestResponse({
         description: 'The menuid input is invalid.',
     })
-    @UsePipes(
-        new ValidationPipe({
-            transform: true,
-            whitelist: true,
-            forbidNonWhitelisted: true,
-            forbidUnknownValues: true,
-        }),
-    )
+
     remove(@Param('id') id: string) {
         return this.menusService.remove(id);
     }
