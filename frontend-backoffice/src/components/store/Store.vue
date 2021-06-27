@@ -1,8 +1,15 @@
 <template>
   <div>
-    <data-tables :data="data" :total="10" @sort-change="sortChange">
+     <addStore/>
+     <editStore :dialog ="editDialog" @updateEditeDialog ="updateEditeDialog" :items="editItems"/>
+     <deleteStore :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" />
+    
+    <data-tables :data="data" :total="10"  >
         <div slot="empty" style="color: red">Users is empty</div>
-        
+
+        <el-table-column  type="index" :index="indexMethod" label="ID" width="400" sortable >
+        </el-table-column>
+       
         <el-table-column prop="name" label="Name" width="400" sortable>
         </el-table-column>
         <el-table-column prop="description" label="Description" width="400" sortable>
@@ -12,8 +19,8 @@
     
         <el-table-column fixed="right">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="editUser(scope.row)">Edit</el-button>
-            <el-button type="text" size="small">Delete</el-button>
+            <el-button type="text" size="small"  @click="editStore(scope.row)" icon="el-icon-edit"></el-button>
+            <el-button type="text" size="small" @click="deleteStore(scope.row)" icon="el-icon-delete"></el-button>
           </template>
         </el-table-column>
       </data-tables>
@@ -22,19 +29,58 @@
 </template>
 
 <script>
+import router from "../../main"; 
 import axios from "axios";
+import addStore from '../store/addStore.vue'
+import editStore from '../store/editStore.vue'
+import deleteStore from '../store/deleteStore.vue'
 export default {
+    components:{
+      addStore,
+      editStore,
+      deleteStore
+},
   data(){
     return {
-      data:[]
+      data:[],
+      items:[],
+    editItems:[],
+      editDialog:false,
+      deleteDialog:false
     }
   },
   async created() {
-    const Test = await axios.get('http://localhost:3000/stores')
-    console.log(Test.data)
-    this.data = Test.data
-  }
+    const res = await axios.get('http://localhost:3000/stores')
+    this.data = res.data
+  },
+  methods:{
+       indexMethod(index) {
+        return "00".concat(index+1);  
+    },
+    editStore(store){
+        this.editDialog = true
+        // this.editItems = store
+           router.push({
+        name : 'Store-editStore',
+        params:{
+          id: store.id
+        }
+      })
+        
+    },
+    deleteStore(store){
+          this.dialog = true
+          this.items = store.id
+    },
+    updateEditeDialog(val){
+        this.editDialog = val
+    },
+    updateDeleteDialog(val){
+  
+        this.deleteDialog = val
+    }
 
+}
 }
 </script>
 

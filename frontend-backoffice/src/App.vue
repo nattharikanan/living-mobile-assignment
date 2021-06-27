@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div class="container">
-    <Store/>
+
+    <Store />
     </div>
           
    
