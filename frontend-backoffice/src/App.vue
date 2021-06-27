@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-    <HelloWorld/>
+    <Store/>
     </div>
           
    
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Store from './components/store/Store.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Store
   }
 }
 </script>
