@@ -2,33 +2,32 @@
 <div>
    <el-button type="primary" @click="dialogVisible = true" round>+ Add new Store</el-button>
    <el-dialog
-  title="Add Store"
+   title="Add Store"
   :visible.sync="dialogVisible"
   width="30%">
-
-  <span slot="footer" class="dialog-footer">
       <el-form :label-position="labelPosition" :model="formAddStore" :rules="rule">
-  <el-form-item label="Name" prop="storeName" >
+  <el-form-item label="Name" prop="name" >
     <el-input v-model="formAddStore.name"></el-input>
   </el-form-item>
-  <el-form-item label="Description">
+  <el-form-item label="Description" prop="description">
     <el-input v-model="formAddStore.description"></el-input>
   </el-form-item>
   <el-form-item label="Rating" :label-position="labelPosition"  prop="storeRating">
-    <el-select v-model="formAddStore.rating" clearable placeholder="Select">
+    <br>
+    <el-select v-model="formAddStore.rating" clearable placeholder="Select" class="option">
     <el-option
+    
       v-for="item in options"
       :key="item.value"
       :label="item.value"
       :value="item.value">
     </el-option>
   </el-select>
-
   </el-form-item>
 </el-form>
     <el-button @click="dialogVisible = false" round>Cancel</el-button>
     <el-button type="primary" @click="addStore()" round>Add Store</el-button>
-  </span>
+
 </el-dialog>
       
 </div>
@@ -48,10 +47,10 @@ export default {
           rating:''
       },
       rule:{
-             storeName: [
-               { required: true, message: 'Please input your store name.', trigger: 'blur' },
-               { min: 2, max: 50, message: 'Length of 2 to 50 characters', trigger: 'blur' },
+             name: [
+                { required: true, message: 'Please input name', trigger: 'blur' }
              ],
+             description : [{ required: true, message: 'Please input name', trigger: 'blur' }],
              storeRating:[
                    { required: true, message: 'Please select your store raing.', trigger: 'blur' },
              ]
@@ -71,20 +70,45 @@ export default {
   },
   methods:{
      async addStore(){
-          this.dialogVisible = false
+       if(this.formAddStore.name === '' || this.formAddStore.description ==='', this.formAddStore.rating === '' ){
+          this.$notify.warning({
+          title: 'ไม่สำเร็จ',
+          message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+          offset: 80
+        });
+       }else{
+         this.dialogVisible = false
           console.log(this.formAddStore)
           const res = await axios.post('http://localhost:3000/stores',{
               name : this.formAddStore.name,
               description : this.formAddStore.description,
               rating : this.formAddStore.rating
           })
-          console.log(res.status)
+            if (!res.status == 201) {
+        console.log("แก้ไขข้อมูลสินค้าไม่สำเร็จ");
+
+      } else {
+        this.open();
+        console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
+       }
+       this.dialogVisible= false
       }
-      
+
+       },
+         open() {
+        this.$notify.success({
+          title: 'สำเร็จ',
+          message: 'เพิ่มข้อมูลร้านค้าสำเร็จ',
+          offset: 80
+        });
+      }
   }
 }
 </script>
 
 <style>
+.option{
+  width: 390px;
+}
 
 </style>

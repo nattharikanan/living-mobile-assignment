@@ -25,6 +25,8 @@ export class CategoryModel extends Model {
     @HasMany(()=> MenuModel)
     menuId: MenuModel[]
 
+    
+    
     // @HasMany(()=> MenuModel)    ///ใส่หัวเมนู 
     // Menu: MenuModel[]
 
