@@ -2,11 +2,13 @@
 <div>
    <el-button type="primary" @click="dialogVisible = true" round>+ Add new Store</el-button>
    <el-dialog
+   class="addStore"
    title="Add Store"
   :visible.sync="dialogVisible"
-  width="30%">
+    width="50%">
+    <hr/>
       <el-form :label-position="labelPosition" :model="formAddStore" :rules="rule">
-  <el-form-item label="Name" prop="name" >
+  <el-form-item label="Store Name" prop="name" >
     <el-input v-model="formAddStore.name"></el-input>
   </el-form-item>
   <el-form-item label="Description" prop="description">
@@ -24,9 +26,13 @@
     </el-option>
   </el-select>
   </el-form-item>
+  <br>
+  <br>
 </el-form>
+<div class="set-button">
     <el-button @click="dialogVisible = false" round>Cancel</el-button>
     <el-button type="primary" @click="addStore()" round>Add Store</el-button>
+</div>
 
 </el-dialog>
       
@@ -48,11 +54,11 @@ export default {
       },
       rule:{
              name: [
-                { required: true, message: 'Please input name', trigger: 'blur' }
+                { required: true, message: 'Please input Store name', trigger: 'blur' }
              ],
-             description : [{ required: true, message: 'Please input name', trigger: 'blur' }],
+             description : [{ required: true, message: 'Please input Store description', trigger: 'blur' }],
              storeRating:[
-                   { required: true, message: 'Please select your store raing.', trigger: 'blur' },
+                   { required: true, message: 'Please select your Store raing.', trigger: 'blur' },
              ]
       },
            options: [{
@@ -106,9 +112,7 @@ export default {
 }
 </script>
 
-<style>
-.option{
-  width: 390px;
-}
+<style >
+
 
 </style>

@@ -4,7 +4,10 @@
   title="ลบร้านค้า"
   :visible.sync="openCardDialog"
   width="30%">
+    <div class="show-message">
   คุณต้องการลบ {{deleteItems.name}} ใช่หรือไม่ ?
+    </div>
+    
   <span slot="footer" class="dialog-footer">
     <el-button type="danger" round @click="deleteStore()">Delete Store</el-button>
     <el-button @click="openCardDialog= false" round>Cancel</el-button>
@@ -75,7 +78,9 @@ export default {
 </script>
 
 <style scoped>
-.deleteDialog{
-   height: 300px;
+.show-message{
+  padding-top: 20px;
+  font-size: 20px;
 }
+
 </style>

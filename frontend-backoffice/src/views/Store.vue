@@ -79,9 +79,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .addStore{
-  float: right;
+  display: flex;
+  justify-content:flex-end;
+  margin-right: 50px;
 }
 
 </style>

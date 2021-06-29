@@ -1,20 +1,20 @@
 <template>
 <div>
-  <div class="editDialog">
    <el-dialog
- 
+   class="editDialog"
   title= "Edite Store"
   :visible.sync="openCardDialog"
-  width="30%"
-  >
+  width="50%" >
+     <hr/>
       <el-form :label-position="labelPosition" :model="formEditStore[0]" :rules="rules" >
-  <el-form-item label="Name" prop="name" >
+  <el-form-item label="Store Name" prop="name" >
     <el-input v-model="formEditStore.name"></el-input>
   </el-form-item>
   <el-form-item label="Description"  prop="description">
     <el-input  v-model="formEditStore.description"></el-input>
   </el-form-item>
   <el-form-item label="Rating" :label-position="labelPosition"  prop="storeRating">
+    <br>
     <el-select  v-model="formEditStore.rating" clearable placeholder="Select" class="option">
     <el-option
       v-for="item in options"
@@ -25,18 +25,12 @@
   </el-select>
   <br>
   </el-form-item>
-  <div class="button">
+  <div class="set-button">
     <el-button @click="openCardDialog= false" round>Cancel</el-button>
     <el-button type="primary" round @click="editStore">Edit Store</el-button>
 </div>
 </el-form>
-
-
-   
 </el-dialog>
-
-
-  </div>
 
   </div>
 </template>
@@ -136,16 +130,9 @@ export default {
    }
 }
 </script>
-
 <style>
-.option{
-  width: 390px;
+.editDialog .set-button {
+  display: flex;
+  justify-content: flex-end;
 }
-.editDialog #el-dialog{
-   border-radius: 10px;
-}
-.button{
-  float: right;
-}
-
 </style>
