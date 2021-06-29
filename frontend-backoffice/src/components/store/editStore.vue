@@ -4,7 +4,7 @@
    class="editDialog"
   title= "Edite Store"
   :visible.sync="openCardDialog"
-  width="50%" >
+  width="40%" >
      <hr/>
       <el-form :label-position="labelPosition" :model="formEditStore[0]" :rules="rules" >
   <el-form-item label="Store Name" prop="name" >
