@@ -1,13 +1,11 @@
 <template>
 <div>
    <el-button type="primary" @click="dialogVisible = true" round>+ Add new Category</el-button>
-   
     <el-dialog
         title="AddCategory"
         :visible.sync="dialogVisible"
         width="40%">
-        <hr>
-    <span slot="footer" class="dialog-footer">
+        <hr/>
     <el-form :label-position="labelPosition" :model="formAddCategory" :rules="rule">
         <el-form-item label="Name" prop="CategoryName" >
             <el-input v-model="formAddCategory.name"></el-input>
@@ -24,11 +22,12 @@
             </el-select>
         </el-form-item>
     </el-form>
-    <el-button @click="dialogVisible = false" round>Cancel</el-button>
-    <el-button type="primary" @click="addCategory()" round>Add</el-button>
-  </span>
-</el-dialog>
-      
+    <br><br>
+    <div class="set-button">
+        <el-button @click="dialogVisible = false" round>Cancel</el-button>
+        <el-button type="primary" @click="addCategory()" round>Add</el-button>
+    </div>
+    </el-dialog>
 </div>
  
 </template>
@@ -107,6 +106,5 @@ export default {
 </script>
 
 <style>
-
 
 </style>

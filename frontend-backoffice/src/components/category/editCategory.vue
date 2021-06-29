@@ -4,7 +4,6 @@
         :visible.sync="openCardDialog"
         width="40%">
         <hr>
-    <span slot="footer" class="dialog-footer">
     <el-form :label-position="labelPosition" :model="formEditCategory[0]" >
         <el-form-item label="Name" prop="Name" >
             <el-input v-model="formEditCategory.name"></el-input>
@@ -20,9 +19,11 @@
             </el-select>
         </el-form-item>
     </el-form>
-    <el-button @click="openCardDialog= false" round>Cancel</el-button>
-    <el-button type="primary" round @click="editCategory()">Edit</el-button>
-  </span>
+    <br><br>
+    <div class="set-button">
+        <el-button @click="openCardDialog= false" round>Cancel</el-button>
+        <el-button type="primary" round @click="editCategory()">Edit</el-button>
+    </div>
 </el-dialog>
   
 </template>

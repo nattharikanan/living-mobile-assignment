@@ -1,17 +1,16 @@
 <template>
    <el-dialog
-        title="ลบร้านค้า"
+        title=“ลบร้านค้า”
         :visible.sync="openCardDialog"
-        width="30%">
+        width=“30%“>
         <div class="message">
           คุณต้องการลบ <strong>{{deleteItems.name}}</strong> ใช่หรือไม่ ?
         </div>
-        
-    
-    <span slot="footer" class="dialog-footer">
+        <br><br>
+    <div class="set-button">
         <el-button type="danger" round @click="deleteCategory()">Delete</el-button>
         <el-button @click="openCardDialog= false" round>Cancel</el-button>
-    </span>
+    </div>
     </el-dialog>
 </template>
 <script>
@@ -53,30 +52,19 @@ export default {
             const res = await axios.delete(`http://localhost:3000/categories/${this.items}`)          
             console.log(res.status)
             if (!res.status == 200) {
-              this.$notify.warning({
-                title: 'ไม่สำเร็จ',
-                message: 'ลบประเภทไม่สำเร็จ',
-                offset: 80
-                });
-                console.log("ลบประเภทไม่สำเร็จ");
+                console.log("ลบสินค้าไม่สำเร็จ");
             } else {
                 this.open();
                 console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
             }
             this.openCardDialog= false
-            this.reload()
-        },
-        reload(){
-            setTimeout(function(){
-                location.reload(); 
-            },2000);
         },
         open() {
             this.$notify.success({
-            title: 'สำเร็จ',
-            message: 'ลบข้อมูลประเภทสำเร็จ',
-            offset: 80
-            }); 
+                title: 'สำเร็จ',
+                message: 'ลบข้อมูลสำเร็จ',
+                offset: 80
+            });
         },
     }
 }
