@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
 .option {
     display: flex;
 }
-.el-table{
+
+.el-table {
     border-radius: 10px;
+    font-family: Kanit;
 }
 
 .el-dialog {
@@ -52,6 +55,7 @@
 }
 
 .addStore {
+    font-family: Rubik;
     display: flex;
     justify-content: flex-end;
     margin-right: 50px;
