@@ -42,3 +42,13 @@
 .hr {
     width: 100%;
 }
+
+.el-table-colum {
+    text-align: center;
+}
+
+.addStore {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+}
