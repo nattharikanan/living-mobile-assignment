@@ -76,9 +76,9 @@ export default {
         }, {
           value: 5,
         }],
-           rule :{
+           rules :{
              name: [{ required: true, message: 'Please input name', trigger: 'blur' }],
-             description : [{ required: true, message: 'Please input name', trigger: 'blur' }],
+             description : [{ required: true, message: 'Please input description', trigger: 'blur' }],
              storeRating:[{ required: true, message: 'Please select your store raing.', trigger: 'blur' }]
              },
         }
