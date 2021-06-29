@@ -69,10 +69,10 @@
       margin: 0px 14px;
   }
   .main{
-    margin-top: 92px;
+    margin-top:90px;
     position: relative;
     background: #FFFFFF;
-    padding: 40px 100px;
+    padding: 0px 100px;
   }
   .image{
     position: absolute;
