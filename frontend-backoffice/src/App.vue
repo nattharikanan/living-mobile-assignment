@@ -80,4 +80,8 @@
     left: 30px;
    /* bottom: px; */
   }
+  .show-message{
+    padding-top: 20px;
+    font-size: 20px;
+  }
 </style>
