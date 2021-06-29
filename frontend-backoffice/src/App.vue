@@ -7,7 +7,7 @@
      <ul>
        
           <li><a href="/store" >store</a></li>
-          <li><a href="/category" >category</a></li>
+          <li><a href="/categories" >category</a></li>
           <li><a href="/menu">menu</a></li>
      </ul>
   </div>
