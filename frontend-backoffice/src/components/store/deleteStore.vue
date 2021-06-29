@@ -1,47 +1,37 @@
 <template>
    <el-dialog
-  title="Do you want to delete this Store ?"
+   class="deleteDialog"
+  title="ลบร้านค้า"
   :visible.sync="openCardDialog"
   width="30%">
+    <div class="show-message">
+  คุณต้องการลบ {{deleteItems.name}} ใช่หรือไม่ ?
+    </div>
+    
   <span slot="footer" class="dialog-footer">
-      <!-- <el-form :label-position="labelPosition" :model="formAddStore" :rules="rule">
-  <el-form-item label="Name" prop="storeName" >
-    <el-input v-model="formEditStore.name"></el-input>
-  </el-form-item>
-  <el-form-item label="Description">
-    <el-input v-model="formEditStore.description"></el-input>
-  </el-form-item>
-  <el-form-item label="Rating" :label-position="labelPosition"  prop="storeRating">
-    <el-select v-model="formEditStore.rating" clearable placeholder="Select">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.value"
-      :value="item.value">
-    </el-option>
-  </el-select>
-
-  </el-form-item>
-</el-form> -->
+    <el-button type="danger" round @click="deleteStore()">Delete Store</el-button>
     <el-button @click="openCardDialog= false" round>Cancel</el-button>
-    <el-button type="primary" round>Delete Store</el-button>
   </span>
 </el-dialog>
   
 </template>
 
 <script>
-// import axios from "axios";
+ import axios from "axios";
 export default {
    props : {
         dialog : {
             type : Boolean,
               default: false,
+        },
+        items : {
+          type : String
         }
     },
      computed: {
     openCardDialog: {
       get() {
+        this.setData()
         return this.dialog
       },
       set(val) {
@@ -51,15 +41,46 @@ export default {
   },
     data(){
         return {
-          action : false
+          deleteItems:[]
         }
     },
    methods: {
+    async setData(){
+       if(this.dialog){
+            const res = await axios.get(`http://localhost:3000/stores/${this.items}`)
+            this.deleteItems = res.data[0]
+       }
+      
+     },
+     async deleteStore(){
+           const res = await axios.delete(`http://localhost:3000/stores/${this.items}`)
+           console.log(res.status)
+              if (!res.status == 200) {
+        console.log("ลบสินค้าไม่สำเร็จ");
+
+      } else {
+        this.open();
+        console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
+       }
+       this.openCardDialog= false
+
+     },
+         open() {
+        this.$notify.success({
+          title: 'สำเร็จ',
+          message: 'ลบข้อมูลสำเร็จ',
+          offset: 80
+        });
+      }
    
    }
 }
 </script>
 
-<style>
+<style scoped>
+.show-message{
+  padding-top: 20px;
+  font-size: 20px;
+}
 
 </style>
