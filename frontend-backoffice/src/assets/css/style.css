@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+.option {
+    display: flex;
+}
+
+.el-table {
+    border-radius: 10px;
+    font-family: Kanit;
+}
+
+.el-dialog {
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.el-dialog__header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.el-dialog__title {
+    margin-left: 20px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.el-form-item__label {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.el-dialog__body {
+    padding: 5px 40px 40px;
+}
+
+.el-form-item__label {
+    float: left;
+}
+
+.el-form-item {
+    margin-bottom: 1px
+}
+
+.set-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hr {
+    width: 100%;
+}
+
+.el-table-colum {
+    text-align: center;
+}
+
+.addStore {
+    font-family: Rubik;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+}

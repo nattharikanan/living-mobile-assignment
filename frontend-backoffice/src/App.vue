@@ -1,33 +1,87 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/store">Store</router-link> |
-      <router-link to="/about">Category</router-link> |
-      <router-link to="/menu">Menu</router-link>
-    </div>
+<div>
+  <div id="menu">
+        <div class="image">
+          <img :src="require('./assets/FoodStory_Logo.png')">
+        </div>
+     <ul>
+       
+          <li><a href="/store" >store</a></li>
+          <li><a href="/categories" >category</a></li>
+          <li><a href="/menu">menu</a></li>
+     </ul>
+  </div>
+  <div class="main">
     <router-view/>
   </div>
+</div>
+
 </template>
-
+<style scoped>
+ 
+</style>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import './assets/css/style.css';
+  #menu {
+     background-color: #28B7FF;
+      color: #333;
+      line-height: 60px;
+      height: 60px;
+      position: absolute;
+      left: 0%;
+      right: 0%;
+      top: 0%;
+      bottom: 0%;
+      padding-left: 13px;
+  }
 
-#nav {
-  padding: 30px;
-}
+  #menu ul {
+      padding-left: 13px;
+      margin: 0;
+      list-style: none;
+      height: auto;
+      padding-left: 170px;
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  #menu li {
+      display: inline;
+      /* padding: 15px 30px; */
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  #menu a {
+      color: #FFF;
+      padding: 0px  30px;
+      text-decoration: none;
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      /* margin: 0 40px; */
+  }
+
+  #menu a:hover {
+      background-color: #FFF;
+      color: #28B7FF;
+      border-radius: 12px;
+      padding: 8px 16px;
+      margin: 0px 14px;
+  }
+  .main{
+    margin-top:90px;
+    position: relative;
+    background: #FFFFFF;
+    padding: 0px 100px;
+  }
+  .image{
+    position: absolute;
+    top: 10px;
+    left: 30px;
+   /* bottom: px; */
+  }
+  .show-message{
+    padding-top: 20px;
+    font-size: 20px;
+  }
 </style>

@@ -33,7 +33,6 @@ export class CategoriesService {
             where:{id:id}
         })
     }
-    
     async find(id: string) {
         return this.categoryRepo.findAll({where:{id:id}});
     }
