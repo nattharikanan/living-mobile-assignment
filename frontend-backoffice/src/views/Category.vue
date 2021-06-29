@@ -1,10 +1,12 @@
 <template>
   <div>
-     <addCategory/>
+     <div class="addStore">
+        <addCategory/>
+     </div>
      <editCategory :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteCategory :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="deleteItem" />
 
-    <el-table :data="nameStore" style="width: 100%" max-height="250">
+    <el-table :data="nameStore" style="width: 100%" max-height="250" :header-cell-style="{ background: '#F2F2F2' }">
     <!-- <data-tables :data="nameStore" :total ="10"  > -->
 
         <div slot="empty" style="color: red">Users is empty</div>
@@ -93,6 +95,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scobe>
+.addStore{
+  margin: 30px;
+}
 </style>
