@@ -1,8 +1,9 @@
 <template>
     <el-dialog
-        :title= "formEditCategory.name"
+        title= "Edit Category"
         :visible.sync="openCardDialog"
-        width="30%">
+        width="40%">
+        <hr>
     <span slot="footer" class="dialog-footer">
     <el-form :label-position="labelPosition" :model="formEditCategory[0]" >
         <el-form-item label="Name" prop="Name" >
@@ -58,11 +59,10 @@ export default {
             store:[],
             rule:{
                 Name: [
-                { required: true, message: 'Please input your category name.', trigger: 'blur' },
                 { min: 2, max: 50, message: 'Length of 2 to 50 characters', trigger: 'blur' },
                 ],
                 storeId:[
-                    { required: true, message: 'Please select your store raing.', trigger: 'blur' },
+                    { required: true, message: 'Please select your store.', trigger: 'blur' },
                 ]
             },
         }
@@ -78,20 +78,42 @@ export default {
                 this.formEditCategory = res.data[0]
             }
          },
-
+        reload(){
+            setTimeout(function(){
+                location.reload(); 
+            },2000);
+        },
+        open() {
+            this.$notify.success({
+            title: 'สำเร็จ',
+            message: 'แก้ไขข้อมูลประเภทสำเร็จ',
+            offset: 80
+            }); 
+    },
+    
         async editCategory(){
-            const res = await axios.put(`http://localhost:3000/categories/${this.id}`,{
-                name : this.formEditCategory.name,
-                storeId : this.formEditCategory.storeId,
-            })
-            console.log(res.status);
-            if (!res.status == 200) {
-                console.log("แก้ไขข้อมูลสินค้าไม่สำเร็จ");
+            if(this.formEditCategory.name === '' || this.formEditCategory.storeId ===''){
+                this.$notify.warning({
+                title: 'ไม่สำเร็จ',
+                message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                offset: 80
+                });
+            }else{
+                const res = await axios.put(`http://localhost:3000/categories/${this.id}`,{
+                    name : this.formEditCategory.name,
+                    storeId : this.formEditCategory.storeId,
+                })
+                console.log(res.status);
+                if (!res.status == 200) {
+                    console.log("แก้ไขข้อมูลประเภทไม่สำเร็จ");
 
-            } else {
-                console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
+                } else {
+                    this.open();
+                    console.log("แก้ไขข้อมูลประเภทสำเร็จ");
+                }
+                this.openCardDialog= false
+                this.reload()
             }
-            this.openCardDialog= false
         },
 
         async getStore()  {

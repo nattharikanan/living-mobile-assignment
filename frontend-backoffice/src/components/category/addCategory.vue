@@ -5,11 +5,11 @@
     <el-dialog
         title="AddCategory"
         :visible.sync="dialogVisible"
-        width="30%">
+        width="40%">
         <hr>
     <span slot="footer" class="dialog-footer">
     <el-form :label-position="labelPosition" :model="formAddCategory" :rules="rule">
-        <el-form-item label="Name" prop="storeName" >
+        <el-form-item label="Name" prop="CategoryName" >
             <el-input v-model="formAddCategory.name"></el-input>
         </el-form-item>
         <el-form-item label="Store ID" prop="storeId">
@@ -25,7 +25,7 @@
         </el-form-item>
     </el-form>
     <el-button @click="dialogVisible = false" round>Cancel</el-button>
-    <el-button type="primary" @click="addCategory()" round>Add Store</el-button>
+    <el-button type="primary" @click="addCategory()" round>Add</el-button>
   </span>
 </el-dialog>
       
@@ -46,13 +46,12 @@ export default {
             storeId:'',
         },
         rule:{
-                storeName: [
-                { required: true, message: 'Please input your store name.', trigger: 'blur' },
+            CategoryName: [
                 { min: 2, max: 50, message: 'Length of 2 to 50 characters', trigger: 'blur' },
-                ],
-                storeRating:[
-                    { required: true, message: 'Please select your store raing.', trigger: 'blur' },
-                ]
+            ],
+            storeID:[
+                    { required: true, message: 'Please select your store .', trigger: 'blur' },
+            ]
         },
         
       }
@@ -62,20 +61,48 @@ export default {
   },
   methods:{
         async addCategory(){
-            this.dialogVisible = false
-            //   console.log(this.formAddStore)
-            await axios.post('http://localhost:3000/categories',{
-                name : this.formAddCategory.name,
-                storeId : this.formAddCategory.storeId,
-            })
-            // console.log(res.status)
-        },
-        async getStore()  {
-            const res = await axios.get('http://localhost:3000/stores')
-            this.store = res.data
+            if(this.formAddCategory.name === '' || this.formAddCategory.storeId ===''){
+                this.$notify.warning({
+                title: 'ไม่สำเร็จ',
+                message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                offset: 80
+                });
+            }else{
+                this.dialogVisible = false
+                console.log(this.formAddStore)
+                const res = await axios.post('http://localhost:3000/categories',{
+                    name : this.formAddCategory.name,
+                    storeId : this.formAddCategory.storeId,
+                })
+                if (!res.status == 201) {
+                console.log("แก้ไขข้อมูลสินค้าไม่สำเร็จ");
+                }else {
+                    this.open();
+                    console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
+                   
+                }
+                this.dialogVisible= false
+                this.reload()
+            }
+       },
+    reload(){
+        setTimeout(function(){
+            location.reload(); 
+        },2000);
+    },
+    open() {
+        this.$notify.success({
+          title: 'สำเร็จ',
+          message: 'เพิ่มข้อมูลประเภทสำเร็จ',
+          offset: 80
+        }); 
+    },
+    async getStore()  {
+        const res = await axios.get('http://localhost:3000/stores')
+        this.store = res.data
             // console.log(this.getstore);
-        },
-    }
+    },
+  }
 }
 </script>
 
