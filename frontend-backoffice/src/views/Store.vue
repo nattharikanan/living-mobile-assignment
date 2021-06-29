@@ -7,7 +7,8 @@
      <editStore :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteStore :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="items" />
      <div class="container">
-          <data-tables :data="data" :total="10"  >
+
+          <el-table :data="data" :total="10" :header-cell-style="{ background: '#F2F2F2' }"  >
         <div slot="empty" style="color: red">Users is empty</div>
         <el-table-column  type="index" :index="indexMethod" label="ID" width="400" sortable >
         </el-table-column>
@@ -23,7 +24,7 @@
             <el-button type="text" size="small" @click="deleteStore(scope.row)" icon="el-icon-delete"></el-button>
           </template>
         </el-table-column>
-      </data-tables>
+      </el-table >
      </div>
  
 
