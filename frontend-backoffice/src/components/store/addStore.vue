@@ -5,7 +5,7 @@
    class="addStore"
    title="Add Store"
   :visible.sync="dialogVisible"
-    width="50%">
+    width="40%">
     <hr/>
       <el-form :label-position="labelPosition" :model="formAddStore" :rules="rule">
   <el-form-item label="Store Name" prop="name" >
@@ -107,6 +107,10 @@ export default {
           message: 'เพิ่มข้อมูลร้านค้าสำเร็จ',
           offset: 80
         });
+        setTimeout(function(){
+        location.reload(); 
+          },1000);
+       
       }
   }
 }

@@ -4,7 +4,7 @@
    class="editDialog"
   title= "Edite Store"
   :visible.sync="openCardDialog"
-  width="50%" >
+  width="40%" >
      <hr/>
       <el-form :label-position="labelPosition" :model="formEditStore[0]" :rules="rules" >
   <el-form-item label="Store Name" prop="name" >
@@ -76,9 +76,9 @@ export default {
         }, {
           value: 5,
         }],
-           rule :{
+           rules :{
              name: [{ required: true, message: 'Please input name', trigger: 'blur' }],
-             description : [{ required: true, message: 'Please input name', trigger: 'blur' }],
+             description : [{ required: true, message: 'Please input description', trigger: 'blur' }],
              storeRating:[{ required: true, message: 'Please select your store raing.', trigger: 'blur' }]
              },
         }
@@ -126,6 +126,10 @@ export default {
           message: 'แก้ไขข้อมูลสำเร็จ',
           offset: 80
         });
+           setTimeout(function(){
+        location.reload(); 
+          },1000);
+       
       }
    }
 }

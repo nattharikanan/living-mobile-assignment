@@ -71,6 +71,10 @@ export default {
           message: 'ลบข้อมูลสำเร็จ',
           offset: 80
         });
+           setTimeout(function(){
+        location.reload(); 
+          },1000);
+       
       }
    
    }

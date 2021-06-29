@@ -1,16 +1,17 @@
 <template>
   <div>
-    <div class="addStore">
-        <addStore/>
+    <div class="addStore"> 
+      <h1 class="store-text">Store</h1>
+       <addStore class="add"/>
     </div>
     
      <editStore :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteStore :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="items" />
      <div class="container">
 
-          <el-table :data="data" :total="10" :header-cell-style="{ background: '#F2F2F2' }"  >
+          <el-table :data="data" :total="10" :header-cell-style="{ background: '#F2F2F2' }" max-height="570"  >
         <div slot="empty" style="color: red">Users is empty</div>
-        <el-table-column  type="index" :index="indexMethod" label="ID" sortable >
+        <el-table-column  type="index" :index="indexMethod" label="ID" sortable width="300" >
         </el-table-column>
         <el-table-column prop="name" label="Name" sortable>
         </el-table-column>
@@ -83,9 +84,11 @@ export default {
 <style scoped>
 .addStore{
   display: flex;
-  justify-content:flex-end;
-  margin-right: 50px;
-  margin-bottom: 30px ;
+  justify-content:space-between;
+ 
+}
+.add{
+margin-top: 20px;
 }
 
 </style>
