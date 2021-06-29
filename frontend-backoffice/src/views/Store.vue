@@ -9,7 +9,7 @@
      <deleteStore :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="items" />
      <div class="container">
 
-          <el-table :data="data" :total="10" :header-cell-style="{ background: '#F2F2F2' }"  >
+          <el-table :data="data" :total="10" :header-cell-style="{ background: '#F2F2F2' }" max-height="570"  >
         <div slot="empty" style="color: red">Users is empty</div>
         <el-table-column  type="index" :index="indexMethod" label="ID" sortable width="300" >
         </el-table-column>
@@ -86,9 +86,6 @@ export default {
   display: flex;
   justify-content:space-between;
  
-}
-.el-table{
-  border-radius: 25px;
 }
 .add{
 margin-top: 20px;
