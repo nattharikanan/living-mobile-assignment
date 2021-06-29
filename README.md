@@ -1,5 +1,5 @@
 # living-mobile-assignment
-# Group Name : [Sinovac 10 เข็ม รับฟรี 1 เข็ม]
+# Group Name : Sinovac 10 เข็ม รับฟรี 1 เข็ม
 Backoffice Assignment
 - Store: [แนน]
 - Category: [ปลานิล]
