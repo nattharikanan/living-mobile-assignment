@@ -1,18 +1,19 @@
 <template>
   <div>
      <div class="addStore">
-        <addCategory/>
-     </div>
+        <h1> Category </h1>
+         <div class="top"><addCategory/> </div>
+     </div>     
      <editCategory :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteCategory :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="deleteItem" />
 
-    <el-table :data="nameStore" style="width: 100%" max-height="250" :header-cell-style="{ background: '#F2F2F2' }">
+    <el-table :data="nameStore" style="width: 100% ;" max-height="570" :header-cell-style="{ background: '#F2F2F2' }">
     <!-- <data-tables :data="nameStore" :total ="10"  > -->
 
         <div slot="empty" style="color: red">Users is empty</div>
-        <el-table-column fixed type="index" :index="indexMethod" label="ID" width="140" sortable > </el-table-column>
-        <el-table-column prop="name" label="Name" sortable> </el-table-column>
-        <el-table-column  prop="storeName" label="Store ID"  sortable ></el-table-column>
+        <el-table-column fixed type="index" :index="indexMethod" label="ID" width="250" sortable > </el-table-column>
+        <el-table-column prop="name" label="Name" width="250" sortable> </el-table-column>
+        <el-table-column  prop="storeName"   width="250" label="Store ID"  sortable ></el-table-column>
     
         <el-table-column fixed="right" label=" Edit  |  Delete">
           <template slot-scope="scope">
@@ -96,7 +97,19 @@ export default {
 </script>
 
 <style scobe>
+
 .addStore{
-  margin: 30px;
+  /* margin-bottom: 30px; */
+  display: flex;
+  justify-content:space-between;
+}
+.heard-titel{
+  display: flex;
+}
+.h1{
+  font-size: 24px;
+}
+.top{
+  margin-top: 25px;
 }
 </style>
