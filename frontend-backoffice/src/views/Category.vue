@@ -1,6 +1,8 @@
 <template>
   <div>
-     <addCategory/>
+     <div class="addStore">
+        <addCategory/>
+     </div>
      <editCategory :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteCategory :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="deleteItem" />
 
