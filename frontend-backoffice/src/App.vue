@@ -22,6 +22,7 @@
 </style>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import './assets/css/style.css';
   #menu {
      background-color: #28B7FF;
       color: #333;
