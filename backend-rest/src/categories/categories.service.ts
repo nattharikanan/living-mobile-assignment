@@ -37,4 +37,7 @@ export class CategoriesService {
         return this.categoryRepo.findAll({where:{id:id}});
     }
     
+    async findbystoreid(id: string) {
+        return this.categoryRepo.findAll({where:{storeId:id}});
+    }
 }
