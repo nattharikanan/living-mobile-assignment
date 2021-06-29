@@ -3,20 +3,23 @@
      <addCategory/>
      <editCategory :dialog ="editDialog"  @updateEditeDialog ="updateEditeDialog" :items="editItems" />
      <deleteCategory :dialog ="deleteDialog" @updateDeleteDialog ="updateDeleteDialog" :items="deleteItem" />
-    
-    <data-tables :data="nameStore" :total="10"  >
+
+    <el-table :data="nameStore" style="width: 100%" max-height="250">
+    <!-- <data-tables :data="nameStore" :total ="10"  > -->
+
         <div slot="empty" style="color: red">Users is empty</div>
-        <el-table-column type="index" :index="indexMethod" label="ID" width="400" sortable > </el-table-column>
-        <el-table-column prop="name" label="Name" width="400" sortable> </el-table-column>
-        <el-table-column  prop="storeName" label="Store ID" width="400" sortable ></el-table-column>
+        <el-table-column fixed type="index" :index="indexMethod" label="ID" width="140" sortable > </el-table-column>
+        <el-table-column prop="name" label="Name" sortable> </el-table-column>
+        <el-table-column  prop="storeName" label="Store ID"  sortable ></el-table-column>
     
-        <el-table-column fixed="right">
+        <el-table-column fixed="right" label=" Edit  |  Delete">
           <template slot-scope="scope">
-            <el-button type="text" size="small"  @click="editCategory(scope.row)" icon="el-icon-edit"></el-button>
+            <el-button type="text" size="small"  @click="editCategory(scope.row)" style="margin-right: 15px" icon="el-icon-edit"></el-button>
             <el-button type="text" size="small" @click="deletecategoey(scope.row)" icon="el-icon-delete"></el-button>
           </template>
         </el-table-column>
-      </data-tables>
+      <!-- </data-tables> -->
+      </el-table>
 
   </div>
 </template>
