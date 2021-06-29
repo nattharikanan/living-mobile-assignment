@@ -79,4 +79,19 @@ export class CategoriesController {
             res.status(HttpStatus.OK).json(cat);
         }
     }
+
+    @Get('findbystoreid/:id')
+    @ApiOperation({ summary: 'Search category by id'})
+    @ApiOkResponse({ // HTTP 200
+        isArray: true,
+        type: CategoryDto,
+    })
+     async findbystoreid(@Param('id') id: string,@Res() res:Response){
+        const cat = await this.categoriesService.findbystoreid(id);
+        if(cat[0] === null || cat[0] === undefined ){
+                res.status(HttpStatus.NOT_FOUND).json();
+        }else{
+            res.status(HttpStatus.OK).json(cat);
+        }
+    }
 }

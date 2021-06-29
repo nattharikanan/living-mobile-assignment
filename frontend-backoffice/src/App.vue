@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/store">Store</router-link> |
-      <router-link to="/about">Category</router-link>
+      <router-link to="/about">Category</router-link> |
+      <router-link to="/menu">Menu</router-link>
     </div>
     <router-view/>
   </div>

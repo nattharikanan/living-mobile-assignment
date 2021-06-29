@@ -28,6 +28,11 @@ const routes = [
     name: 'editStore',
     component: () => import(/* webpackChunkName: "about" */ '../components/store/editStore.vue')
   },
+  {
+    path: '/menu',
+    name: 'menu',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Menu.vue')
+  },
 ]
 
 const router = new VueRouter({
