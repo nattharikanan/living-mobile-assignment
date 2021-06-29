@@ -57,6 +57,7 @@ export default {
                 this.open();
                 console.log("แก้ไขข้อมูลสินค้าสำเร็จ");
             }
+            this.reload()
             this.openCardDialog= false
         },
         open() {
@@ -65,6 +66,11 @@ export default {
                 message: 'ลบข้อมูลสำเร็จ',
                 offset: 80
             });
+        },
+        reload(){
+            setTimeout(function(){
+                location.reload(); 
+            },2000);
         },
     }
 }
