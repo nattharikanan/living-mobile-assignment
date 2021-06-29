@@ -3,10 +3,13 @@
         title=“ลบร้านค้า”
         :visible.sync="openCardDialog"
         width=“30%“>
-        คุณต้องการลบ <strong>{{deleteItems.name}}</strong> ใช่หรือไม่ ?
+        <div class="message">
+          คุณต้องการลบ <strong>{{deleteItems.name}}</strong> ใช่หรือไม่ ?
+        </div>
+        
     
     <span slot="footer" class="dialog-footer">
-        <el-button type=“danger” round @click="deleteCategory()">Delete</el-button>
+        <el-button type="danger" round @click="deleteCategory()">Delete</el-button>
         <el-button @click="openCardDialog= false" round>Cancel</el-button>
     </span>
     </el-dialog>
@@ -68,10 +71,9 @@ export default {
 }
 </script>
 <style>
+
 </style>
 
-
-Send a message to Nattharika Romsanuk
 
 
 

@@ -8,8 +8,8 @@
         <el-form-item label="Name" prop="Name" >
             <el-input v-model="formEditCategory.name"></el-input>
         </el-form-item>
-        <el-form-item label="Store ID" :label-position="labelPosition"  prop="storeId">
-            <el-select v-model="formEditCategory.storeId" clearable placeholder="Select">
+        <el-form-item label="Store ID" :label-position="labelPosition"  prop="storeId"><br>
+            <el-select v-model="formEditCategory.storeId" clearable placeholder="Select"  class="option">
                 <el-option
                 v-for="item in store"
                 :key="item.id"

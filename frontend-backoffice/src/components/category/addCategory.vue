@@ -1,17 +1,20 @@
 <template>
 <div>
    <el-button type="primary" @click="dialogVisible = true" round>+ Add new Category</el-button>
+   
     <el-dialog
         title="AddCategory"
         :visible.sync="dialogVisible"
         width="30%">
+        <hr>
     <span slot="footer" class="dialog-footer">
     <el-form :label-position="labelPosition" :model="formAddCategory" :rules="rule">
         <el-form-item label="Name" prop="storeName" >
             <el-input v-model="formAddCategory.name"></el-input>
         </el-form-item>
-        <el-form-item label="Store ID" :label-position="labelPosition"  prop="storeId">
-            <el-select v-model="formAddCategory.storeId" clearable placeholder="Select">
+        <el-form-item label="Store ID" prop="storeId">
+            <br>
+            <el-select v-model="formAddCategory.storeId" clearable placeholder="Select" class="option">
                 <el-option
                 v-for="item in store"
                 :key="item.id"
@@ -77,5 +80,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>
