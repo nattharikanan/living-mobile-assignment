@@ -107,6 +107,10 @@ export default {
           message: 'เพิ่มข้อมูลร้านค้าสำเร็จ',
           offset: 80
         });
+        setTimeout(function(){
+        location.reload(); 
+          },1000);
+       
       }
   }
 }
